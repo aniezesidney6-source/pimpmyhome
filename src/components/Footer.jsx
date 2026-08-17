@@ -6,7 +6,18 @@ import { studio } from '../data/projects'
 export default function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="border-t border-line mt-24 md:mt-40">
+    <footer
+      className="mt-24 md:mt-40"
+      style={{
+        backgroundColor: '#14140f',
+        color: '#f2efe7',
+        // scope the design tokens so every child utility adapts to the dark footer
+        '--color-ink': '#f2efe7',
+        '--color-stone': '#8f8b81',
+        '--color-line': '#2c2b26',
+        '--color-canvas': '#14140f',
+      }}
+    >
       <div className="u-shell py-16 md:py-20">
         <div className="grid grid-cols-4 md:grid-cols-12 gap-x-6 gap-y-12">
           {/* Studio */}
