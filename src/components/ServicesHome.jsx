@@ -13,7 +13,9 @@ export default function ServicesHome() {
   return (
     <section className="u-shell mt-24 md:mt-40">
       <Reveal className="grid grid-cols-4 md:grid-cols-12 gap-x-6 items-baseline mb-12 md:mb-16">
-        <span className="u-meta text-stone col-span-4 md:col-span-6">Services</span>
+        <span className="u-meta text-stone col-span-4 md:col-span-6">
+          <span className="text-ink">02</span>&nbsp;&nbsp;&nbsp;Services
+        </span>
         <div className="col-span-4 md:col-span-3 md:col-start-10 md:justify-self-end mt-2 md:mt-0">
           <Link to="/services" className="u-meta u-link">
             All Services

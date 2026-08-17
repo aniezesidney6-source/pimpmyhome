@@ -5,6 +5,7 @@ import ProjectImage from '../components/ProjectImage'
 import PhilosophyList from '../components/PhilosophyList'
 import ServicesHome from '../components/ServicesHome'
 import HeroVideo from '../components/HeroVideo'
+import CountUp from '../components/CountUp'
 import CTABand from '../components/CTABand'
 import Reveal from '../components/Reveal'
 import HomeDecor from '../components/HomeDecor'
@@ -67,7 +68,10 @@ export default function Home() {
       {/* ---------------- SELECTED WORK ---------------- */}
       <section className="u-shell mt-24 md:mt-40">
         <Reveal className="grid grid-cols-4 md:grid-cols-12 gap-x-6 items-baseline mb-16 md:mb-24">
-          <h2 className="u-h2 col-span-4 md:col-span-6">Selected Work</h2>
+          <h2 className="u-h2 col-span-4 md:col-span-6 flex items-baseline gap-4">
+            <span className="u-meta text-stone">01</span>
+            Selected Work
+          </h2>
           <div className="col-span-4 md:col-span-3 md:col-start-10 md:justify-self-end">
             <Link to="/work" className="u-meta u-link">
               All Projects
@@ -89,7 +93,7 @@ export default function Home() {
       <section className="u-shell mt-24 md:mt-40">
         <Reveal className="grid grid-cols-4 md:grid-cols-12 gap-x-6 mb-16 md:mb-24">
           <span className="u-meta text-stone col-span-4 md:col-span-12 mb-6">
-            Approach
+            <span className="text-ink">03</span>&nbsp;&nbsp;&nbsp;Approach
           </span>
           <h2 className="u-h1 col-span-4 md:col-span-9 max-w-[18ch]">
             Four ideas hold every project we make.
@@ -100,7 +104,9 @@ export default function Home() {
 
       {/* ---------------- ABOUT THE DESIGNER ---------------- */}
       <section className="u-shell mt-24 md:mt-40">
-        <Reveal className="u-meta text-stone block mb-10 md:mb-14">The Designer</Reveal>
+        <Reveal className="u-meta text-stone block mb-10 md:mb-14">
+          <span className="text-ink">04</span>&nbsp;&nbsp;&nbsp;The Designer
+        </Reveal>
         <div className="grid grid-cols-4 md:grid-cols-12 gap-x-6 gap-y-10 items-start">
           <Reveal className="col-span-4 md:col-span-5">
             <ProjectImage src={DESIGNER_IMG} alt="John Kennedy, founder of Pimpmyhome" ratio="4 / 5" hover={false} parallax parallaxStrength={0.08} />
@@ -123,7 +129,7 @@ export default function Home() {
                 ['08', 'Cities'],
               ].map(([v, l]) => (
                 <div key={l}>
-                  <div className="u-h1">{v}</div>
+                  <div className="u-h1"><CountUp value={v} /></div>
                   <div className="u-meta text-stone mt-2">{l}</div>
                 </div>
               ))}

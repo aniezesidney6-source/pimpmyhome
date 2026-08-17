@@ -1,5 +1,6 @@
 import { stats } from '../data/projects'
 import Reveal from './Reveal'
+import CountUp from './CountUp'
 
 // Experience statistics (§14). Quiet, typographic — not dashboard tiles.
 // Left padding keeps the numbers off the vertical dividers.
@@ -18,7 +19,7 @@ export default function Stats() {
             'md:pl-8 md:border-l md:border-line md:first:border-l-0 md:first:pl-0'
           }
         >
-          <div className="u-h1">{s.value}</div>
+          <div className="u-h1"><CountUp value={s.value} /></div>
           <div className="u-meta text-stone mt-3">{s.label}</div>
         </Reveal>
       ))}

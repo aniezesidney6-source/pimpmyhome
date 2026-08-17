@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { getProject, getNextProject } from '../data/projects'
@@ -12,6 +13,11 @@ import NotFound from './NotFound'
 export default function ProjectDetail() {
   const { id } = useParams()
   const project = getProject(id)
+
+  useEffect(() => {
+    if (project) document.title = `${project.title} — Pimpmyhome`
+  }, [project])
+
   if (!project) return <NotFound />
   const next = getNextProject(id)
 

@@ -71,6 +71,7 @@ export default function HomeDecor() {
             key={i}
             src={p.src}
             alt=""
+            loading="lazy"
             draggable={false}
             onPointerDown={(e) => onPointerDown(e, i)}
             onPointerMove={onPointerMove}
