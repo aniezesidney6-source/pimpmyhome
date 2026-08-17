@@ -1,0 +1,288 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   ATELIER MERIDIAN — Editorial Design System
+   ============================================================ */
+
+@theme {
+  /* Color */
+  --color-canvas: #f5f3ee;
+  --color-ink: #171715;
+  --color-stone: #6f6c64;
+  --color-line: #d8d5cd;
+  --color-paper: #ffffff;
+  --color-terracotta: #9b5e48;
+
+  /* Type families */
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'Neue Montreal', 'Helvetica Neue', 'Inter', system-ui, -apple-system,
+    'Segoe UI', Arial, sans-serif;
+
+  /* Spacing scale (8px base) — used via arbitrary values where needed */
+  --spacing-editorial: 8px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    overflow-x: hidden;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-canvas);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400;
+    margin: 0;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Visible, quiet focus states */
+  :focus-visible {
+    outline: 1.5px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------- Editorial type primitives ---------- */
+@layer components {
+  .u-display {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 9vw, 6rem); /* 48 -> 96 */
+    line-height: 0.95;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .u-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.625rem, 6vw, 4rem); /* 42 -> 64 */
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .u-h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.125rem, 4.5vw, 3rem); /* 34 -> 48 */
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+
+  .u-h3 {
+    font-family: var(--font-sans);
+    font-size: clamp(1.5rem, 2.4vw, 1.75rem); /* 24 -> 28 */
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .u-body-lg {
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem); /* 18 -> 20 */
+    line-height: 1.55;
+    color: var(--color-ink);
+  }
+
+  .u-body {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .u-caption {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    color: var(--color-stone);
+  }
+
+  .u-meta {
+    font-size: 0.6875rem; /* 11px */
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Editorial page shell — 1440px of CONTENT, plus the page margin outside it
+     (64px desktop / 40 tablet / 20 mobile). max-width = 1440 + 2×margin. */
+  .u-shell {
+    width: 100%;
+    max-width: calc(1440px + 40px); /* content 1440 + 20px mobile margins */
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) {
+    .u-shell {
+      max-width: calc(1440px + 80px); /* + 40px tablet margins */
+      padding-inline: 40px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .u-shell {
+      max-width: calc(1440px + 128px); /* + 64px desktop margins */
+      padding-inline: 64px;
+    }
+  }
+
+  /* Underline-on-hover link (editorial) */
+  .u-link {
+    position: relative;
+    display: inline-block;
+  }
+  .u-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease-out);
+  }
+  .u-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ---------- Reveal-on-scroll ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Wipe reveal — content unmasks upward as it enters. */
+.reveal-wipe {
+  opacity: 0;
+  clip-path: inset(0 0 105% 0);
+  transition:
+    clip-path 0.95s var(--ease-out),
+    opacity 0.6s var(--ease-out);
+  will-change: clip-path;
+}
+.reveal-wipe.is-visible {
+  opacity: 1;
+  clip-path: inset(0 0 -5% 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .reveal-wipe {
+    opacity: 1;
+    clip-path: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Editorial image hover ---------- */
+.img-frame {
+  overflow: hidden;
+  background: var(--color-line);
+}
+.img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+.img-hover:hover img {
+  transform: scale(1.025);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-hover:hover img {
+    transform: none;
+  }
+}
+
+/* ---------- Custom cursor (desktop, pointer only) ---------- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.35s var(--ease-out),
+    height 0.35s var(--ease-out),
+    background-color 0.35s var(--ease-out);
+}
+
+/* Hide native cursor only when custom cursor active */
+@media (hover: hover) and (pointer: fine) {
+  body.has-cursor {
+    cursor: none;
+  }
+  body.has-cursor a,
+  body.has-cursor button {
+    cursor: none;
+  }
+}
+
+/* No scrollbar on mobile menu overlay etc. handled inline */
